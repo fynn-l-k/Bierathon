@@ -192,19 +192,33 @@ function subscribeAdminPanel() {
       const card = document.createElement('div');
       card.className = 'admin-team-card';
 
+      const membersEscaped = team.members.map(escapeHtml);
       card.innerHTML = `
         <div class="team-number">Startnummer #${index + 1} · angemeldet: ${formatDate(team.registeredAt)}</div>
         <div class="admin-team-header">
-          <div>
+          <div class="admin-team-info">
             <div class="admin-team-name">${escapeHtml(team.name)}</div>
-            <div class="admin-team-members">${team.members.map(escapeHtml).join(', ')}</div>
+            <div class="admin-team-members">${membersEscaped.join(', ')}</div>
           </div>
           <div class="admin-controls">
             <label class="toggle-paid">
               <input type="checkbox" ${team.paid ? 'checked' : ''} data-id="${id}" class="paid-checkbox" />
               <span>${team.paid ? 'Bezahlt' : 'Nicht bezahlt'}</span>
             </label>
+            <button class="btn-edit-team" data-id="${id}" title="Team bearbeiten">✏️</button>
             <button class="btn-delete-team" data-id="${id}" title="Team löschen">🗑</button>
+          </div>
+        </div>
+        <div class="edit-form hidden" id="edit-${id}">
+          <div class="edit-fields">
+            <input class="edit-input" type="text" placeholder="Teamname" value="${escapeHtml(team.name)}" data-field="name" />
+            ${[0,1,2,3].map(i => `
+              <input class="edit-input" type="text" placeholder="Person ${i+1}${i===0?' *':''}" value="${escapeHtml(team.members[i] || '')}" data-field="member${i}" />
+            `).join('')}
+          </div>
+          <div class="edit-actions">
+            <button class="btn-save-team btn-primary-small" data-id="${id}">Speichern</button>
+            <button class="btn-cancel-edit btn-secondary-small" data-id="${id}">Abbrechen</button>
           </div>
         </div>
       `;
@@ -218,7 +232,40 @@ function subscribeAdminPanel() {
     container.querySelectorAll('.btn-delete-team').forEach(btn => {
       btn.addEventListener('click', () => deleteTeam(btn.dataset.id));
     });
+    container.querySelectorAll('.btn-edit-team').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const form = document.getElementById(`edit-${btn.dataset.id}`);
+        form.classList.toggle('hidden');
+      });
+    });
+    container.querySelectorAll('.btn-cancel-edit').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById(`edit-${btn.dataset.id}`).classList.add('hidden');
+      });
+    });
+    container.querySelectorAll('.btn-save-team').forEach(btn => {
+      btn.addEventListener('click', () => saveTeamEdit(btn.dataset.id));
+    });
   });
+}
+
+async function saveTeamEdit(id) {
+  const form = document.getElementById(`edit-${id}`);
+  const name = form.querySelector('[data-field="name"]').value.trim();
+  const members = [0,1,2,3]
+    .map(i => form.querySelector(`[data-field="member${i}"]`).value.trim())
+    .filter(Boolean);
+
+  if (!name) { alert('Teamname darf nicht leer sein.'); return; }
+  if (members.length === 0) { alert('Mindestens eine Person erforderlich.'); return; }
+
+  try {
+    await updateDoc(doc(db, 'teams', id), { name, members });
+    form.classList.add('hidden');
+  } catch (err) {
+    alert('Fehler beim Speichern.');
+    console.error(err);
+  }
 }
 
 async function togglePaid(id, paid) {
