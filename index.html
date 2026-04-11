@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bierathon – Anmeldung</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🍺 Bierathon</h1>
+    <nav>
+      <button class="nav-btn active" onclick="showSection('anmeldung')">Anmeldung</button>
+      <button class="nav-btn" onclick="showSection('teams')">Teamliste</button>
+      <button class="nav-btn" onclick="showSection('admin')">Admin</button>
+    </nav>
+  </header>
+
+  <!-- Anmeldung -->
+  <section id="anmeldung" class="section active">
+    <div class="card">
+      <h2>Team anmelden</h2>
+      <form id="anmeldeForm">
+        <div class="form-group">
+          <label>Teamname *</label>
+          <input type="text" id="teamname" placeholder="z.B. Die Schaumkronen" required maxlength="50" />
+        </div>
+
+        <h3>Mitglieder</h3>
+
+        <div class="form-group">
+          <label>Person 1 *</label>
+          <input type="text" id="person1" placeholder="Vor- und Nachname" required maxlength="50" />
+        </div>
+        <div class="form-group">
+          <label>Person 2</label>
+          <input type="text" id="person2" placeholder="Vor- und Nachname" maxlength="50" />
+        </div>
+        <div class="form-group">
+          <label>Person 3</label>
+          <input type="text" id="person3" placeholder="Vor- und Nachname" maxlength="50" />
+        </div>
+        <div class="form-group">
+          <label>Person 4</label>
+          <input type="text" id="person4" placeholder="Vor- und Nachname" maxlength="50" />
+        </div>
+
+        <p id="formError" class="error"></p>
+        <button type="submit" class="btn-primary">Team anmelden</button>
+      </form>
+      <p id="successMsg" class="success hidden">Team wurde erfolgreich angemeldet!</p>
+    </div>
+  </section>
+
+  <!-- Teamliste -->
+  <section id="teams" class="section">
+    <div class="card">
+      <h2>Angemeldete Teams</h2>
+      <p id="noTeams" class="muted">Noch keine Teams angemeldet.</p>
+      <div id="teamList"></div>
+    </div>
+  </section>
+
+  <!-- Admin -->
+  <section id="admin" class="section">
+    <div class="card" id="loginCard">
+      <h2>Admin-Login</h2>
+      <div class="form-group">
+        <label>Passwort</label>
+        <input type="password" id="adminPassword" placeholder="Passwort eingeben" />
+      </div>
+      <p id="loginError" class="error"></p>
+      <button class="btn-primary" onclick="adminLogin()">Einloggen</button>
+    </div>
+
+    <div class="card hidden" id="adminPanel">
+      <div class="admin-header">
+        <h2>Admin-Bereich</h2>
+        <button class="btn-secondary" onclick="adminLogout()">Ausloggen</button>
+      </div>
+      <p id="noTeamsAdmin" class="muted">Noch keine Teams angemeldet.</p>
+      <div id="adminTeamList"></div>
+      <div class="admin-actions">
+        <button class="btn-danger" onclick="confirmDeleteAll()">Alle Teams löschen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

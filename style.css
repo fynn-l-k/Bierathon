@@ -1,0 +1,345 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #1a1a2e;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: rgba(26,26,46,0.2);
+  color: #1a1a2e;
+  border: 2px solid #1a1a2e;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background: #1a1a2e;
+  color: #ffd200;
+}
+
+.section {
+  display: none;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.section.active {
+  display: block;
+}
+
+.card {
+  background: #16213e;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+  color: #ffd200;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: #f7971e;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  color: #a0a0c0;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 2px solid #0f3460;
+  border-radius: 8px;
+  background: #0f3460;
+  color: #e0e0e0;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ffd200;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #1a1a2e;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  width: 100%;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #ffd200;
+  border: 2px solid #ffd200;
+  padding: 0.4rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #ffd200;
+  color: #1a1a2e;
+}
+
+.btn-danger {
+  background: transparent;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.btn-danger:hover {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  min-height: 1.2em;
+}
+
+.success {
+  color: #2ecc71;
+  font-size: 1rem;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.muted {
+  color: #606080;
+  font-style: italic;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Team cards (public list) */
+.team-card {
+  background: #0f3460;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #f7971e;
+}
+
+.team-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.team-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffd200;
+}
+
+.badge-paid {
+  background: #27ae60;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+}
+
+.badge-unpaid {
+  background: #7f8c8d;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+}
+
+.members-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.members-list li {
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.88rem;
+  color: #c0c0e0;
+}
+
+/* Admin team cards */
+.admin-team-card {
+  background: #0f3460;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #ffd200;
+}
+
+.admin-team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-team-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffd200;
+}
+
+.admin-team-members {
+  font-size: 0.85rem;
+  color: #a0a0c0;
+  margin-top: 0.4rem;
+}
+
+.admin-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.toggle-paid {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-paid input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #27ae60;
+  cursor: pointer;
+}
+
+.toggle-paid span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #a0a0c0;
+}
+
+.toggle-paid input:checked + span {
+  color: #27ae60;
+}
+
+.btn-delete-team {
+  background: transparent;
+  color: #e74c3c;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-delete-team:hover {
+  background: rgba(231, 76, 60, 0.15);
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-header h2 {
+  margin-bottom: 0;
+}
+
+.admin-actions {
+  text-align: right;
+}
+
+.team-number {
+  font-size: 0.8rem;
+  color: #606080;
+  margin-bottom: 0.25rem;
+}
