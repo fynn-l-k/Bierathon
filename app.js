@@ -123,9 +123,6 @@ function subscribeTeamList() {
           <span class="team-name">${escapeHtml(team.name)}</span>
           ${badge}
         </div>
-        <ul class="members-list">
-          ${team.members.map(m => `<li>${escapeHtml(m)}</li>`).join('')}
-        </ul>
       `;
       container.appendChild(card);
     });
