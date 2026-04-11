@@ -343,3 +343,86 @@ h3 {
   color: #606080;
   margin-bottom: 0.25rem;
 }
+
+/* Startseite */
+.hero-card {
+  text-align: center;
+  padding: 2.5rem 2rem;
+}
+
+.event-logo {
+  max-width: 320px;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.strecke-bild {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.hero-title {
+  font-size: 2rem;
+  color: #ffd200;
+  margin-bottom: 0.5rem;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: #a0a0c0;
+}
+
+/* Strecke */
+.strecke {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0.5rem;
+}
+
+.strecke-punkt {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+}
+
+.strecke-nr {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #1a1a2e;
+  font-weight: 900;
+  font-size: 0.9rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.strecke-linie {
+  width: 2px;
+  height: 20px;
+  background: #f7971e;
+  margin-left: 13px;
+  opacity: 0.4;
+}
+
+/* Regelwerk */
+.regelwerk {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+.regelwerk li {
+  color: #c0c0e0;
+}

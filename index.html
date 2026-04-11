@@ -3,21 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bierathon – Anmeldung</title>
+  <title>Bierathon</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>🍺 Bierathon</h1>
     <nav>
-      <button class="nav-btn active" onclick="showSection('anmeldung')">Anmeldung</button>
+      <button class="nav-btn active" onclick="showSection('start')">Start</button>
+      <button class="nav-btn" onclick="showSection('anmeldung')">Team anmelden</button>
       <button class="nav-btn" onclick="showSection('teams')">Teamliste</button>
       <button class="nav-btn" onclick="showSection('admin')">Admin</button>
     </nav>
   </header>
 
+  <!-- Start / Regelwerk -->
+  <section id="start" class="section active">
+    <div class="card hero-card">
+      <img src="Bilder/Bierathon_2026_Logo.jpg" alt="Bierathon Logo" class="event-logo" />
+      <p class="hero-sub">Jeder muss sich selber helfen.</p>
+    </div>
+
+    <div class="card">
+      <h2>🗺️ Die Strecke</h2>
+      <!-- Streckenbeschreibung – anpassen -->
+      <div class="strecke">
+        <div class="strecke-punkt">
+          <span class="strecke-nr">1</span>
+          <span>Startpunkt: <strong>Festwiese</strong></span>
+        </div>
+        <div class="strecke-linie"></div>
+        <div class="strecke-punkt">
+          <span class="strecke-nr">2</span>
+          <span>Ungefähre Dauer: <strong>2 Stunden</strong></span>
+        </div>
+        <div class="strecke-linie"></div>
+        <div class="strecke-punkt">
+          <span class="strecke-nr">3</span>
+          <span>Rundenanzahl: <strong>2</strong></span>
+        </div>
+      </div>
+      <img src="Bilder/Strecke.jpeg" alt="Streckenkarte" class="strecke-bild" />
+    </div>
+
+    <div class="card">
+      <h2>📋 Regelwerk</h2>
+      <ol class="regelwerk">
+        <li>Pro Team 4 Leute.</li>
+        <li>Die gesamte Strecke muss gelaufen werden und dabei der Kasten getrunken werden.</li>
+        <li>Es wird als Team gelaufen – niemand darf zurückgelassen werden.</li>
+        <li>Hilfsmittel sowohl zum Trinken als auch zum Transport sind grundsätzlich nicht erlaubt (Bollerwagen, Trichter, Rucksäcke etc.) </li>
+        <li>Geht ein Bier kaputt, muss ein Beweisfoto gemacht werden. Vor der Ziellinie gibt es für jedes nicht vorhandene Bier ein Strafbier</li>
+        <li>Bei Bier aus Plastikflaschen, wird euch eine Stunde draufgerechnet</li>
+        <li>Teamnamen auf Kasten und Entsorgung auf Eigenverantwortung</li>
+        <li>Hilfe von außen ist untersagt</li>
+        <li>Die Strecke ist nicht gesperrt, es muss auf den Verkehr geachtet werden</li>
+        <li><strong>Es geht um Fairplay & Vertrauen, jedes Team achtet selbst auf die Einhaltung der Regeln</strong></li>
+      </ol>
+    </div>
+  </section>
+
   <!-- Anmeldung -->
-  <section id="anmeldung" class="section active">
+  <section id="anmeldung" class="section">
     <div class="card">
       <h2>Team anmelden</h2>
       <form id="anmeldeForm">
@@ -80,13 +127,9 @@
       </div>
       <p id="noTeamsAdmin" class="muted">Noch keine Teams angemeldet.</p>
       <div id="adminTeamList"></div>
-      <div class="admin-actions">
-        <button class="btn-danger" onclick="confirmDeleteAll()">Alle Teams löschen</button>
-      </div>
     </div>
   </section>
 
-  <!-- Firebase SDK -->
   <script type="module" src="app.js"></script>
 </body>
 </html>

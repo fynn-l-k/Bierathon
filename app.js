@@ -19,7 +19,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const teamsCol = collection(db, 'teams');
 
-const ADMIN_PASSWORD = 'bierathon2025';
+const ADMIN_HASH = '0755a387dbcbfdebc29e533f47d71a3e3c7f3709a761b85c70ec347c48c5c558';
+
+async function hashPassword(pw) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 // ── Navigation ───────────────────────────────────────────────
 
@@ -28,7 +33,7 @@ function showSection(name) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
   document.getElementById(name).classList.add('active');
-  const labels = ['anmeldung', 'teams', 'admin'];
+  const labels = ['start', 'anmeldung', 'teams', 'admin'];
   document.querySelectorAll('.nav-btn')[labels.indexOf(name)].classList.add('active');
 
   if (name === 'teams') subscribeTeamList();
@@ -113,7 +118,7 @@ function subscribeTeamList() {
         : '<span class="badge-unpaid">Ausstehend</span>';
 
       card.innerHTML = `
-        <div class="team-number">Team #${index + 1}</div>
+        <div class="team-number">Startnummer #${index + 1}</div>
         <div class="team-card-header">
           <span class="team-name">${escapeHtml(team.name)}</span>
           ${badge}
@@ -135,11 +140,12 @@ function isAdminLoggedIn() {
   return sessionStorage.getItem('adminLoggedIn') === 'true';
 }
 
-window.adminLogin = function () {
+window.adminLogin = async function () {
   const pw = document.getElementById('adminPassword').value;
   const errorEl = document.getElementById('loginError');
 
-  if (pw === ADMIN_PASSWORD) {
+  const hash = await hashPassword(pw);
+  if (hash === ADMIN_HASH) {
     sessionStorage.setItem('adminLoggedIn', 'true');
     document.getElementById('loginCard').classList.add('hidden');
     document.getElementById('adminPanel').classList.remove('hidden');
@@ -187,7 +193,7 @@ function subscribeAdminPanel() {
       card.className = 'admin-team-card';
 
       card.innerHTML = `
-        <div class="team-number">Team #${index + 1} · angemeldet: ${formatDate(team.registeredAt)}</div>
+        <div class="team-number">Startnummer #${index + 1} · angemeldet: ${formatDate(team.registeredAt)}</div>
         <div class="admin-team-header">
           <div>
             <div class="admin-team-name">${escapeHtml(team.name)}</div>
@@ -231,16 +237,6 @@ async function deleteTeam(id) {
     console.error('Fehler beim Löschen:', err);
   }
 }
-
-window.confirmDeleteAll = async function () {
-  if (!confirm('Wirklich ALLE Teams löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
-  try {
-    const snapshot = await getDocs(teamsCol);
-    await Promise.all(snapshot.docs.map(d => deleteDoc(doc(db, 'teams', d.id))));
-  } catch (err) {
-    console.error('Fehler beim Löschen aller Teams:', err);
-  }
-};
 
 // ── Utilities ────────────────────────────────────────────────
 
