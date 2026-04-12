@@ -69,11 +69,15 @@ document.getElementById('anmeldeForm').addEventListener('submit', async function
   submitBtn.textContent = 'Wird angemeldet…';
 
   try {
+    const allDocs = await getDocs(teamsCol);
+    const startnummer = allDocs.size + 1;
+
     await addDoc(teamsCol, {
       name: teamname,
       members: [p1, p2, p3, p4].filter(Boolean),
       paid: false,
       registeredAt: new Date().toISOString(),
+      startnummer,
     });
 
     this.reset();
@@ -118,7 +122,7 @@ function subscribeTeamList() {
         : '<span class="badge-unpaid">Ausstehend</span>';
 
       card.innerHTML = `
-        <div class="team-number">Startnummer #${index + 1}</div>
+        <div class="team-number">Startnummer #${team.startnummer ?? '–'}</div>
         <div class="team-card-header">
           <span class="team-name">${escapeHtml(team.name)}</span>
           ${badge}
