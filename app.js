@@ -70,7 +70,8 @@ document.getElementById('anmeldeForm').addEventListener('submit', async function
 
   try {
     const allDocs = await getDocs(teamsCol);
-    const startnummer = allDocs.size + 1;
+    const maxNr = allDocs.docs.reduce((max, d) => Math.max(max, d.data().startnummer ?? 0), 0);
+    const startnummer = maxNr + 1;
 
     await addDoc(teamsCol, {
       name: teamname,
@@ -117,15 +118,21 @@ function subscribeTeamList() {
       const card = document.createElement('div');
       card.className = 'team-card';
 
-      const badge = team.paid
+      const badgePaid = team.paid
         ? '<span class="badge-paid">✓ Bezahlt</span>'
         : '<span class="badge-unpaid">Ausstehend</span>';
+      const badgeSigned = team.signed
+        ? '<span class="badge-paid">✓ Unterschrift</span>'
+        : '<span class="badge-unpaid">Keine Unterschrift</span>';
 
       card.innerHTML = `
         <div class="team-number">Startnummer #${team.startnummer ?? '–'}</div>
         <div class="team-card-header">
           <span class="team-name">${escapeHtml(team.name)}</span>
-          ${badge}
+          <div class="badge-group">
+            ${badgePaid}
+            ${badgeSigned}
+          </div>
         </div>
       `;
       container.appendChild(card);

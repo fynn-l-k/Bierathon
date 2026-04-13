@@ -211,6 +211,13 @@ h3 {
   color: #ffd200;
 }
 
+.badge-group {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .badge-paid {
   background: #27ae60;
   color: #fff;
