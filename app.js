@@ -206,6 +206,10 @@ function subscribeAdminPanel() {
               <input type="checkbox" ${team.paid ? 'checked' : ''} data-id="${id}" class="paid-checkbox" />
               <span>${team.paid ? 'Bezahlt' : 'Nicht bezahlt'}</span>
             </label>
+            <label class="toggle-paid">
+              <input type="checkbox" ${team.signed ? 'checked' : ''} data-id="${id}" class="signed-checkbox" />
+              <span>${team.signed ? 'Unterschrieben' : 'Nicht unterschrieben'}</span>
+            </label>
             <button class="btn-edit-team" data-id="${id}" title="Team bearbeiten">✏️</button>
             <button class="btn-delete-team" data-id="${id}" title="Team löschen">🗑</button>
           </div>
@@ -229,6 +233,9 @@ function subscribeAdminPanel() {
     // Event-Listener nach dem Rendern setzen
     container.querySelectorAll('.paid-checkbox').forEach(cb => {
       cb.addEventListener('change', () => togglePaid(cb.dataset.id, cb.checked));
+    });
+    container.querySelectorAll('.signed-checkbox').forEach(cb => {
+      cb.addEventListener('change', () => toggleSigned(cb.dataset.id, cb.checked));
     });
     container.querySelectorAll('.btn-delete-team').forEach(btn => {
       btn.addEventListener('click', () => deleteTeam(btn.dataset.id));
@@ -272,6 +279,14 @@ async function saveTeamEdit(id) {
 async function togglePaid(id, paid) {
   try {
     await updateDoc(doc(db, 'teams', id), { paid });
+  } catch (err) {
+    console.error('Fehler beim Aktualisieren:', err);
+  }
+}
+
+async function toggleSigned(id, signed) {
+  try {
+    await updateDoc(doc(db, 'teams', id), { signed });
   } catch (err) {
     console.error('Fehler beim Aktualisieren:', err);
   }
