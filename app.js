@@ -202,7 +202,7 @@ function subscribeAdminPanel() {
 
       const membersEscaped = team.members.map(escapeHtml);
       card.innerHTML = `
-        <div class="team-number">Startnummer #${index + 1} · angemeldet: ${formatDate(team.registeredAt)}</div>
+        <div class="team-number">Startnummer #${team.startnummer ?? '–'} · angemeldet: ${formatDate(team.registeredAt)}</div>
         <div class="admin-team-header">
           <div class="admin-team-info">
             <div class="admin-team-name">${escapeHtml(team.name)}</div>
