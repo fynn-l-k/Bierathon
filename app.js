@@ -217,20 +217,6 @@ function subscribeAdminPanel() {
               <input type="checkbox" ${team.signed ? 'checked' : ''} data-id="${id}" class="signed-checkbox" />
               <span>${team.signed ? 'Unterschrieben' : 'Nicht unterschrieben'}</span>
             </label>
-            <button class="btn-edit-team" data-id="${id}" title="Team bearbeiten">✏️</button>
-            <button class="btn-delete-team" data-id="${id}" title="Team löschen">🗑</button>
-          </div>
-        </div>
-        <div class="edit-form hidden" id="edit-${id}">
-          <div class="edit-fields">
-            <input class="edit-input" type="text" placeholder="Teamname" value="${escapeHtml(team.name)}" data-field="name" />
-            ${[0,1,2,3].map(i => `
-              <input class="edit-input" type="text" placeholder="Person ${i+1}${i===0?' *':''}" value="${escapeHtml(team.members[i] || '')}" data-field="member${i}" />
-            `).join('')}
-          </div>
-          <div class="edit-actions">
-            <button class="btn-save-team btn-primary-small" data-id="${id}">Speichern</button>
-            <button class="btn-cancel-edit btn-secondary-small" data-id="${id}">Abbrechen</button>
           </div>
         </div>
       `;
@@ -243,23 +229,6 @@ function subscribeAdminPanel() {
     });
     container.querySelectorAll('.signed-checkbox').forEach(cb => {
       cb.addEventListener('change', () => toggleSigned(cb.dataset.id, cb.checked));
-    });
-    container.querySelectorAll('.btn-delete-team').forEach(btn => {
-      btn.addEventListener('click', () => deleteTeam(btn.dataset.id));
-    });
-    container.querySelectorAll('.btn-edit-team').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const form = document.getElementById(`edit-${btn.dataset.id}`);
-        form.classList.toggle('hidden');
-      });
-    });
-    container.querySelectorAll('.btn-cancel-edit').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById(`edit-${btn.dataset.id}`).classList.add('hidden');
-      });
-    });
-    container.querySelectorAll('.btn-save-team').forEach(btn => {
-      btn.addEventListener('click', () => saveTeamEdit(btn.dataset.id));
     });
   });
 }
