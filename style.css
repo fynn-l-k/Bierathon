@@ -432,6 +432,28 @@ h3 {
   margin-bottom: 0.25rem;
 }
 
+.closed-card {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.closed-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.closed-title {
+  font-size: 1.8rem;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.closed-text {
+  color: #a0a0c0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
 .download-card {
   display: flex;
   flex-direction: column;

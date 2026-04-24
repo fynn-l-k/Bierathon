@@ -44,7 +44,7 @@ window.showSection = showSection;
 
 // ── Anmeldung ────────────────────────────────────────────────
 
-document.getElementById('anmeldeForm').addEventListener('submit', async function (e) {
+document.getElementById('anmeldeForm')?.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const teamname = document.getElementById('teamname').value.trim();
